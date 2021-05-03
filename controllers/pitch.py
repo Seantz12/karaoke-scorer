@@ -16,9 +16,9 @@ class PitchController:
 
     TOLERANCE = 0.8
 
-    def process(self):
+    def process(self, source_name):
 
-        s = source("audio_source.wav", self.SAMPLE_RATE, self.HOP_S)
+        s = source(source_name, self.SAMPLE_RATE, self.HOP_S)
 
         pitch_o = pitch(
             "yin", self.WIN_S, self.HOP_S, s.samplerate
@@ -32,7 +32,7 @@ class PitchController:
 
         while True:
             samples, read = s()
-            pitch = pitch_o(samples)[0]
+            current_pitch = pitch_o(samples)[0]
             confidence = pitch_o.get_confidence()
             logging.info(
                 "%f %f %f",
@@ -40,10 +40,10 @@ class PitchController:
                 pitch,
                 confidence
             )
-            pitches += [pitch]
+            pitches += [current_pitch]
             confidences += [confidence]
             total_frames += read
-            if read < hop_s:
+            if read < self.HOP_S:
                 break
 
         return pitches
