@@ -2,6 +2,7 @@ import uuid
 import os
 import logging
 
+from controllers.compare import CompareController
 from controllers.pitch import PitchController
 from flask import (
     Flask, request, jsonify
@@ -32,7 +33,6 @@ def receive_request():
     compare_pitches = pitch_controller.process(compare_file_name)
 
     logging.debug(source_pitches)
-    logging.debug(compare_pitches)
 
     if os.path.exists(source_file_name):
         os.remove(source_file_name)
