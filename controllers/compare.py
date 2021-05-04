@@ -18,18 +18,18 @@ class CompareController:
     def score(self, source_pitch, compare_pitch):
         if abs(source_pitch - compare_pitch) < self.THRESHOLD:
             return self.PERFECT
-        elif abs(source.pitch - compare_pitch) < self.EXCELLENT_THRESHOLD:
+        elif abs(source_pitch - compare_pitch) < self.EXCELLENT_THRESHOLD:
             return self.EXCELLENT
-        elif abs(source.pitch - compare_pitch) < self.GREAT_THRESHOLD:
-            return self.GREATT
-        elif abs(source.pitch - compare_pitch) < self.GOOD_THRESHOLD:
+        elif abs(source_pitch - compare_pitch) < self.GREAT_THRESHOLD:
+            return self.GREAT
+        elif abs(source_pitch - compare_pitch) < self.GOOD_THRESHOLD:
             return self.GOOD
-        elif abs(source.pitch - compare_pitch) < self.BAD_THRESHOLD:
+        elif abs(source_pitch - compare_pitch) < self.BAD_THRESHOLD:
             return self.BAD
         else:
             return self.MISS
 
-    def compare_pitches_direct(self, source, compare, threshold):
+    def compare_pitches_direct(self, source, compare):
         # direct comparison between pitch timings
         score_array = [0,0,0,0,0,0]
         # shitty comparison for now dw about it

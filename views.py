@@ -34,6 +34,10 @@ def receive_request():
 
     logging.debug(source_pitches)
 
+    compare_controller = CompareController()
+    score_array = compare_controller.compare_pitches_direct(source_pitches, compare_pitches)
+    print(score_array)
+
     if os.path.exists(source_file_name):
         os.remove(source_file_name)
     if os.path.exists(compare_file_name):
