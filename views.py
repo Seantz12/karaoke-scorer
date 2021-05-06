@@ -38,13 +38,14 @@ def receive_request():
         threshold = int(request.form['threshold'])
 
     compare_controller = CompareController(threshold)
-    score_array = compare_controller.compare_pitches_direct(source_pitches, compare_pitches)
+    (score_array, score) = compare_controller.compare_pitches_direct(source_pitches, compare_pitches)
     logging.debug(score_array)
+    logging.debug(score)
 
     if os.path.exists(source_file_name):
         os.remove(source_file_name)
     if os.path.exists(compare_file_name):
         os.remove(compare_file_name)
-    response = jsonify(score=score_array)
+    response = jsonify(score_array=score_array, score=score)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
