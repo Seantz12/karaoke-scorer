@@ -15,6 +15,9 @@ class CompareController:
     BAD = 4
     MISS = 5
 
+    def __init__(self, threshold=10):
+        self.THRESHOLD = threshold
+
     def score(self, source_pitch, compare_pitch):
         if abs(source_pitch - compare_pitch) < self.THRESHOLD:
             return self.PERFECT

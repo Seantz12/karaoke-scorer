@@ -31,17 +31,20 @@ def receive_request():
 
     source_pitches = pitch_controller.process(source_file_name)
     compare_pitches = pitch_controller.process(compare_file_name)
-
     logging.debug(source_pitches)
 
-    compare_controller = CompareController()
+    threshold = 10
+    if 'threshold' in request.form:
+        threshold = int(request.form['threshold'])
+
+    compare_controller = CompareController(threshold)
     score_array = compare_controller.compare_pitches_direct(source_pitches, compare_pitches)
-    print(score_array)
+    logging.debug(score_array)
 
     if os.path.exists(source_file_name):
         os.remove(source_file_name)
     if os.path.exists(compare_file_name):
         os.remove(compare_file_name)
-    response = jsonify(score=100)
+    response = jsonify(score=score_array)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
